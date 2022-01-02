@@ -1,3 +1,1 @@
-"use strict";
-
-alert("test");
+'use strict'

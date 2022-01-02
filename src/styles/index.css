@@ -1,0 +1,51 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+}
+
+#container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#landingImageContainer {
+	height: 100vh;
+	width: 100vw;
+}
+
+#landingImage {
+	position: fixed;
+	z-index: -1;
+
+	height: 100vh;
+	width: 100vw;
+
+	background-image: url("../images/landingImage.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+#swipeUp {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	width: 100px;
+
+	background-color: #fff;
+
+	position: fixed;
+	bottom: 30px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+}
+
+#content {
+	height: 100vh;
+	background-color: #fff;
+}
