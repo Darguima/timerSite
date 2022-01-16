@@ -28,24 +28,35 @@ html, body {
 	background-position: center;
 }
 
-#swipeUp {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
+#swipeUpButton {
+	width: 20vw;
+	min-width: 100px;
 
-	width: 100px;
-
-	background-color: #fff;
+	background-color: #ffffff75;
+	border: 0;
+	border-radius: 10px;
 
 	position: fixed;
+	z-index: 0;
 	bottom: 30px;
 	left: 0;
 	right: 0;
 	margin: 0 auto;
 }
 
+@media (orientation: landscape) {
+	#swipeUpButton {
+		width: 5vw;
+	}
+}
+
+#swipeUpButton > img {
+	height: 100%;
+	width: 100%;
+}
+
 #content {
+	z-index: 1;
 	height: 100vh;
 	background-color: #fff;
 }
