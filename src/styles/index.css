@@ -56,6 +56,11 @@ html, body {
 }
 
 #content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
 	z-index: 1;
 	height: 100vh;
 	background-color: #fff;
