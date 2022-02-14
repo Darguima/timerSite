@@ -3,10 +3,44 @@
 var countDownDate = new Date(); // Edit me  - 'Aug 07, 2021 22:30:00')
 
 var daysOnCountdownMonth = new Date(countDownDate.getFullYear(), countDownDate.getMonth() + 1, 0).getDate();
+var slidePhotosAmount = 6;
+var sentences = [{
+  sentence: '"The two most powerful warriors are patience and time."',
+  author: 'Leo Tolstoy'
+}, {
+  sentence: '"Time is Money."',
+  author: 'Benjamin Franklin'
+}, {
+  sentence: '"Time waits for no one."',
+  author: 'Folklore'
+}, {
+  sentence: '"Better three hours too soon than a minute too late."',
+  author: 'William Shakespeare'
+}, {
+  sentence: '"Lost time is never found again."',
+  author: 'Benjamin Franklin'
+}, {
+  sentence: '"Time is the most valuable thing a man can spend."',
+  author: 'Theophrastus'
+}, {
+  sentence: '"Time is the wisest counselor of all."',
+  author: 'Pericles'
+}, {
+  sentence: '"The key is in not spending time, but in investing it."',
+  author: 'Stephen R. Covey'
+}, {
+  sentence: '"It is the time you have wasted for your rose that makes your rose so important."',
+  author: 'Antoine de Saint-Exupéry'
+}, {
+  sentence: '"Punctuality is the thief of time."',
+  author: 'Oscar Wilde'
+}];
 
 function main() {
   swipeUpButton();
   countdown();
+  slideImageChange();
+  changeSentence();
 }
 
 main();
@@ -65,4 +99,22 @@ function countdown() {
     counters[4].innerText = "".concat(minutes, " minutes");
     counters[5].innerText = "".concat(seconds, " seconds");
   }, 1000);
+}
+
+function slideImageChange() {
+  var imageContainer = document.getElementById('randomImage');
+  setInterval(function () {
+    var randomNumber = Math.floor(Math.random() * slidePhotosAmount) + 1;
+    imageContainer.src = "images/slideImages/image_".concat(randomNumber, ".jpg");
+  }, 5000);
+}
+
+function changeSentence() {
+  var sentenceParagraph = document.getElementById('sentenceParagraph');
+  var authorParagraph = document.getElementById('authorParagraph');
+  setInterval(function () {
+    var randomNumber = Math.floor(Math.random() * sentences.length);
+    sentenceParagraph.innerText = sentences[randomNumber].sentence;
+    authorParagraph.innerText = sentences[randomNumber].author;
+  }, 5000);
 }

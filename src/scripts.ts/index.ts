@@ -1,9 +1,24 @@
 const countDownDate = new Date() // Edit me  - 'Aug 07, 2021 22:30:00')
 const daysOnCountdownMonth = new Date(countDownDate.getFullYear(), countDownDate.getMonth() + 1, 0).getDate()
+const slidePhotosAmount = 6
+const sentences = [
+  { sentence: '"The two most powerful warriors are patience and time."', author: 'Leo Tolstoy' },
+  { sentence: '"Time is Money."', author: 'Benjamin Franklin' },
+  { sentence: '"Time waits for no one."', author: 'Folklore' },
+  { sentence: '"Better three hours too soon than a minute too late."', author: 'William Shakespeare' },
+  { sentence: '"Lost time is never found again."', author: 'Benjamin Franklin' },
+  { sentence: '"Time is the most valuable thing a man can spend."', author: 'Theophrastus' },
+  { sentence: '"Time is the wisest counselor of all."', author: 'Pericles' },
+  { sentence: '"The key is in not spending time, but in investing it."', author: 'Stephen R. Covey' },
+  { sentence: '"It is the time you have wasted for your rose that makes your rose so important."', author: 'Antoine de Saint-Exupéry' },
+  { sentence: '"Punctuality is the thief of time."', author: 'Oscar Wilde' }
+]
 
 function main () {
   swipeUpButton()
   countdown()
+  slideImageChange()
+  changeSentence()
 }
 
 main()
@@ -65,4 +80,26 @@ function countdown () {
     counters[4].innerText = `${minutes} minutes`
     counters[5].innerText = `${seconds} seconds`
   }, 1000)
+}
+
+function slideImageChange () {
+  const imageContainer = document.getElementById('randomImage') as HTMLImageElement
+
+  setInterval(() => {
+    const randomNumber = Math.floor(Math.random() * slidePhotosAmount) + 1
+
+    imageContainer.src = `images/slideImages/image_${randomNumber}.jpg`
+  }, 5000)
+}
+
+function changeSentence () {
+  const sentenceParagraph = document.getElementById('sentenceParagraph') as HTMLParagraphElement
+  const authorParagraph = document.getElementById('authorParagraph') as HTMLParagraphElement
+
+  setInterval(() => {
+    const randomNumber = Math.floor(Math.random() * sentences.length)
+
+    sentenceParagraph.innerText = sentences[randomNumber].sentence
+    authorParagraph.innerText = sentences[randomNumber].author
+  }, 5000)
 }

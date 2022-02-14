@@ -2,7 +2,16 @@ html, body {
 	margin: 0;
 	padding: 0;
 	overflow-x: hidden;
+	font-size: 32px;
 }
+
+@media (orientation: landscape), (width < 600px) {
+	html, body {
+		font-size: 16px;
+	}
+}
+
+img[src=""] { opacity: 0; }
 
 #container {
 	display: flex;
@@ -29,7 +38,7 @@ html, body {
 }
 
 #swipeUpButton {
-	width: 20vw;
+	width: 5vw;
 	min-width: 100px;
 
 	background-color: #ffffff75;
@@ -44,9 +53,9 @@ html, body {
 	margin: 0 auto;
 }
 
-@media (orientation: landscape) {
+@media (orientation: portrait) {
 	#swipeUpButton {
-		width: 5vw;
+		width: 20vw;
 	}
 }
 
@@ -58,10 +67,79 @@ html, body {
 #content {
 	display: flex;
 	flex-direction: column;
+
+	z-index: 1;
+	background-color: #ffffffee;
+}
+
+.subContent {
+	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 
-	z-index: 1;
 	height: 100vh;
-	background-color: #fff;
+
+	border-width: 3px;
+	border-color: #000;
+	border-top-style: solid;
+}
+
+#rightContent {
+	justify-content: space-evenly;
+}
+
+@media (orientation: landscape) {
+	#content {
+		flex-direction: row;
+	}
+
+	.subContent {
+		width: 50%;
+	}
+
+	#leftContent {
+		border-right-style: solid;
+		border-bottom-style: unset;
+	}
+}
+
+#counterId{
+	font-size: 1.5rem;
+	font-weight: bold;
+	text-align: center;
+}
+
+.counterText {
+	font-size: 1.2rem;
+	text-align: center;
+}
+
+#sentencesContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	
+	width: 75%;
+	height: 45%;
+}
+
+#sentenceParagraph {
+	margin: 8px;
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+#authorParagraph {
+	margin: 8px;
+	font-size: 0.8rem;
+	text-align: center;
+}
+
+#randomImage {
+	object-fit: contain;
+	width: 90%;
+	height: 45%;
+
 }
