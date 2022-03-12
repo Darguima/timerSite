@@ -7,7 +7,7 @@
   "author": "Darguima <dsgdevbraga@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "babel": "babel src/scripts.ts/index.ts -w --out-file src/scripts/index.js"
+    "build": "babel --watch --extensions .ts,.js ./src -d ./dist --copy-files"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.7",
