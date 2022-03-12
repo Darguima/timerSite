@@ -1,4 +1,4 @@
-const countDownDate = new Date() // Edit me  - 'Aug 07, 2021 22:30:00')
+const countDownDate = new Date('Jan 02, 2022 16:23:04')
 const daysOnCountdownMonth = new Date(countDownDate.getFullYear(), countDownDate.getMonth() + 1, 0).getDate()
 
 function main () {
@@ -8,6 +8,7 @@ function main () {
 main()
 
 function timer () {
+  const timerContainer = document.getElementById('timerContainer')!
   const counters = document.querySelectorAll<HTMLParagraphElement>('.counterText')
 
   setInterval(() => {
@@ -45,6 +46,8 @@ function timer () {
       months += 12
       years -= 1
     }
+
+    timerContainer.style.maxHeight = '100vh'
 
     counters[0].innerText = `${years} years`
     counters[1].innerText = `${months} months`
