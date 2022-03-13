@@ -2,13 +2,10 @@ const countDownDate = new Date('Jan 02, 2022 16:23:04')
 const imagesAmount = 7
 
 const daysOnCountdownMonth = new Date(countDownDate.getFullYear(), countDownDate.getMonth() + 1, 0).getDate()
-const { clientWidth: vw, clientHeight: vh } = document.documentElement
 
 function main () {
-  images()
-  images()
-  images()
   timer()
+  imageSpawning()
 }
 
 main()
@@ -64,30 +61,58 @@ function timer () {
   }, 1000)
 }
 
-function images () {
+function imageSpawning () {
   const imageContainer = document.getElementById('imageContainer')!
 
   const image = document.createElement('img')
 
-  image.classList.add('image')
+  image.classList.add('image', 'element')
   imageContainer.appendChild(image)
 
-  image.src = `assets/images/image${getRandomInt(imagesAmount, 1)}.jpg`
+  changeImage()
 
-  image.style.top = `${getRandomInt(vh - image.height / 2, -image.height / 2)}px`
-  image.style.left = `${getRandomInt(vw - image.width / 2, -image.width / 2)}px`
-
-  image.style.opacity = '1'
-
-  setTimeout(() => {
+  function changeImage () {
     image.style.opacity = '0'
+
     setTimeout(() => {
-      image.remove()
-      images()
+      image.src = ''
+      image.src = `assets/images/image${getRandomInt(imagesAmount, 1)}.jpg`
+
+      const { clientWidth: vw, clientHeight: vh } = document.documentElement
+      const { height, width } = image.getBoundingClientRect()
+
+      image.style.top = `${getRandomInt(vh - height)}px`
+      image.style.left = `${getRandomInt(vw - width)}px`
+
+      while (isElemOnElem(image)) {
+        image.style.top = `${getRandomInt(vh - height)}px`
+        image.style.left = `${getRandomInt(vw - width)}px`
+      }
+
+      image.style.opacity = '1'
+
+      setTimeout(changeImage, getRandomInt(5000, 3500))
     }, 1000)
-  }, getRandomInt(5000, 3500))
+  }
 }
 
 function getRandomInt (max: number, min: number = 0) {
   return Math.floor(Math.random() * max) + min
+}
+
+function isElemOnElem (targetElem: Element) {
+  const targetRect = targetElem.getBoundingClientRect()
+  const elements = Array.from(document.getElementsByClassName('element'))
+
+  return elements.some(element => {
+    if (element === targetElem) return false
+    const elementRect = element.getBoundingClientRect()
+
+    return !(
+      (targetRect.bottom < elementRect.top) ||
+      (targetRect.top > elementRect.bottom) ||
+      (targetRect.right < elementRect.left) ||
+      (targetRect.left > elementRect.right)
+    )
+  })
 }
