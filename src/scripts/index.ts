@@ -1,14 +1,39 @@
 const countDownDate = new Date('Jan 02, 2022 16:23:04')
-const imagesAmount = 7
-
 const daysOnCountdownMonth = new Date(countDownDate.getFullYear(), countDownDate.getMonth() + 1, 0).getDate()
 
+const imagesAmount = 7
+
 function main () {
+  toggleFlippedClass()
   timer()
-  imageSpawning()
 }
 
 main()
+
+function toggleFlippedClass () {
+  const card = document.querySelector('#contentContainer')
+
+  const image = document.querySelector<HTMLImageElement>('#contentContainer .back .image')!
+  const animationDelay = Number(
+    getComputedStyle(document.documentElement)
+      .getPropertyValue('--transform-animation-delay')
+      .replace('s', '')
+  )
+  toggleBackFaceImage(image)
+
+  card?.addEventListener('click', () => {
+    card.classList.toggle('flipped')
+
+    if (!card.classList.contains('flipped')) {
+      setTimeout(() => toggleBackFaceImage(image), animationDelay * 1000)
+    }
+  })
+}
+
+function toggleBackFaceImage (image: HTMLImageElement) {
+  const randomImageNumber = Math.floor(Math.random() * imagesAmount) + 1
+  image.src = `assets/images/image${randomImageNumber}.jpg` // ?f=${new Date().getTime()}
+}
 
 function timer () {
   const timerContainer = document.getElementById('timerContainer')!
@@ -59,60 +84,4 @@ function timer () {
     counters[4].innerText = `${minutes} minutes`
     counters[5].innerText = `${seconds} seconds`
   }, 1000)
-}
-
-function imageSpawning () {
-  const imageContainer = document.getElementById('imageContainer')!
-
-  const image = document.createElement('img')
-
-  image.classList.add('image', 'element')
-  imageContainer.appendChild(image)
-
-  changeImage()
-
-  function changeImage () {
-    image.style.opacity = '0'
-
-    setTimeout(() => {
-      image.src = ''
-      image.src = `assets/images/image${getRandomInt(imagesAmount, 1)}.jpg`
-
-      const { clientWidth: vw, clientHeight: vh } = document.documentElement
-      const { height, width } = image.getBoundingClientRect()
-
-      image.style.top = `${getRandomInt(vh - height)}px`
-      image.style.left = `${getRandomInt(vw - width)}px`
-
-      while (isElemOnElem(image)) {
-        image.style.top = `${getRandomInt(vh - height)}px`
-        image.style.left = `${getRandomInt(vw - width)}px`
-      }
-
-      image.style.opacity = '1'
-
-      setTimeout(changeImage, getRandomInt(5000, 3500))
-    }, 1000)
-  }
-}
-
-function getRandomInt (max: number, min: number = 0) {
-  return Math.floor(Math.random() * max) + min
-}
-
-function isElemOnElem (targetElem: Element) {
-  const targetRect = targetElem.getBoundingClientRect()
-  const elements = Array.from(document.getElementsByClassName('element'))
-
-  return elements.some(element => {
-    if (element === targetElem) return false
-    const elementRect = element.getBoundingClientRect()
-
-    return !(
-      (targetRect.bottom < elementRect.top) ||
-      (targetRect.top > elementRect.bottom) ||
-      (targetRect.right < elementRect.left) ||
-      (targetRect.left > elementRect.right)
-    )
-  })
 }
