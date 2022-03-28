@@ -46,7 +46,20 @@ function toggleFlippedClass () {
 }
 
 function toggleBackFaceImage (image: HTMLImageElement, bgImage: HTMLImageElement) {
-  const randomImageNumber = Math.floor(Math.random() * imagesAmount) + 1
+  const previousImageNumber = Number(
+    (
+      (
+        image.src.match(/[\w-]+\.jpg/g) || ['0']
+      )[0]
+        .match(/\d+/) || ['0']
+    )[0]
+  )
+
+  let randomImageNumber
+  do {
+    randomImageNumber = Math.floor(Math.random() * imagesAmount) + 1
+  } while (previousImageNumber === randomImageNumber)
+
   image.src = `assets/images/image${randomImageNumber}.jpg`
   bgImage.style.backgroundImage = `url("assets/images/image${randomImageNumber}.jpg")`
 }
