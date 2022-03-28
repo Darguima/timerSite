@@ -4,11 +4,25 @@ const daysOnCountdownMonth = new Date(countDownDate.getFullYear(), countDownDate
 const imagesAmount = 7
 
 function main () {
+  preloadImages() // image cache
+
   toggleFlippedClass()
   timer()
 }
 
 main()
+
+function preloadImages () {
+  const img = new Image()
+  nextImage()
+  console.log('Image Cache Ready')
+
+  function nextImage (imageIndex = 1) {
+    if (imageIndex > imagesAmount) return
+    img.src = `assets/images/image${imageIndex}.jpg?f=b`
+    img.onload = () => { nextImage(imageIndex + 1) }
+  }
+}
 
 function toggleFlippedClass () {
   const card = document.querySelector('#contentContainer')
@@ -32,7 +46,7 @@ function toggleFlippedClass () {
 
 function toggleBackFaceImage (image: HTMLImageElement) {
   const randomImageNumber = Math.floor(Math.random() * imagesAmount) + 1
-  image.src = `assets/images/image${randomImageNumber}.jpg` // ?f=${new Date().getTime()}
+  image.src = `assets/images/image${randomImageNumber}.jpg`
 }
 
 function timer () {
