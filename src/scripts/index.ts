@@ -19,7 +19,7 @@ function preloadImages () {
 
   function nextImage (imageIndex = 1) {
     if (imageIndex > imagesAmount) return
-    img.src = `assets/images/image${imageIndex}.jpg?f=b`
+    img.src = `assets/images/image${imageIndex}.jpg`
     img.onload = () => { nextImage(imageIndex + 1) }
   }
 }
@@ -28,25 +28,27 @@ function toggleFlippedClass () {
   const card = document.querySelector('#contentContainer')
 
   const image = document.querySelector<HTMLImageElement>('#contentContainer .back .image')!
+  const bgImage = document.querySelector<HTMLImageElement>('#contentContainer .back .bg-image')!
   const animationDelay = Number(
     getComputedStyle(document.documentElement)
       .getPropertyValue('--transform-animation-delay')
       .replace('s', '')
   )
-  toggleBackFaceImage(image)
+  toggleBackFaceImage(image, bgImage)
 
   card?.addEventListener('click', () => {
     card.classList.toggle('flipped')
 
     if (!card.classList.contains('flipped')) {
-      setTimeout(() => toggleBackFaceImage(image), animationDelay * 1000)
+      setTimeout(() => toggleBackFaceImage(image, bgImage), animationDelay * 1000)
     }
   })
 }
 
-function toggleBackFaceImage (image: HTMLImageElement) {
+function toggleBackFaceImage (image: HTMLImageElement, bgImage: HTMLImageElement) {
   const randomImageNumber = Math.floor(Math.random() * imagesAmount) + 1
   image.src = `assets/images/image${randomImageNumber}.jpg`
+  bgImage.style.backgroundImage = `url("assets/images/image${randomImageNumber}.jpg")`
 }
 
 function timer () {

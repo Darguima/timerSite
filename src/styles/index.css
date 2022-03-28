@@ -54,10 +54,6 @@ body {
 	background-color: #ffffff;
 }
 
-#contentContainer .back {
-	transform: rotateY(-180deg);
-}
-
 .front  #title {
 	font-size: 1.25em;
 	font-family: 'Fredoka', sans-serif;
@@ -78,8 +74,26 @@ body {
 	font-weight: 400;
 }
 
+#contentContainer .back {
+	transform: rotateY(-180deg);
+	overflow: hidden;
+}
+
 #contentContainer .back .image {
 	max-width: 90%;
 	max-height: 90%;
 	border-radius: 12px;
+}
+
+#contentContainer .back .bg-image {
+	width: 110%;
+	height: 110%;
+	
+	background-position: center;
+	background-size: cover;
+	
+	filter: blur(8px);
+	
+	position: absolute;
+	z-index: -1;
 }
